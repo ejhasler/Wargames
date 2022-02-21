@@ -140,7 +140,7 @@ public class Army {
      *Returns a random unit from the list of units
      * @return unit Returns a random unit from the list of units
      */
-    public Unit getRandom(){
+    public Unit getRandomUnit(){
         Random random = new Random();
         return this.units.get(random.nextInt(this.units.size()));
     }
