@@ -35,7 +35,7 @@ public abstract class Unit {
     /**
      * Attack that follows a certain form: Health = Health - (attack + attackBonus) + (armor + resistBonus)
      */
-    protected void attack() {
+    protected void attack(Unit opponentUnit) {
         this.health = this.health - (attack + getAttackBonus()) + (getArmor() + getResistBonus());
     }
 
@@ -76,7 +76,7 @@ public abstract class Unit {
      * Indicate the health of the character.
      * Health >=0
      */
-    protected void setHealth() {
+    protected void setHealth(int health) {
         if(health >= 0) {
             System.exit(0);
         }

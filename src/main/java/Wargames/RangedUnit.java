@@ -2,7 +2,7 @@ package Wargames;
 
 
 /**
- * A class representing an RangedUnit. With different values.
+ * A class representing a model of an RangedUnit. With different values.
  *
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022
