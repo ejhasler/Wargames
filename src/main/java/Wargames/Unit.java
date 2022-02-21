@@ -1,5 +1,4 @@
 package Wargames;
-import java.util.List;
 
 /**
  * A class representing different types of units and
@@ -46,7 +45,6 @@ public abstract class Unit {
      * @return The name of the character.
      */
     protected String getName() {
-
         return name;
     }
 
@@ -55,7 +53,6 @@ public abstract class Unit {
      * @return The health of the character.
      */
     protected int getHealth() {
-
         return health;
     }
 
@@ -64,7 +61,6 @@ public abstract class Unit {
      * @return The attacking of the character.
      */
     protected int getAttack() {
-
         return attack;
     }
 
@@ -73,7 +69,6 @@ public abstract class Unit {
      * @return The armor of the character.
      */
     protected int getArmor () {
-
         return armor;
     }
 
