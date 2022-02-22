@@ -8,24 +8,34 @@ package Wargames;
  * @version 20.02.20022
  */
 public abstract class Unit {
-    // Name of the character
+    // Name of the unit.
     private String name;
-    // Health of the character
+    // Health of the unit.
     private int health;
-    // Attacking of the character
+    // Attacking of the unit.
     private int attack;
-    // The armor of the character
+    // The armor of the unit.
     private int armor;
+    // How many times it's been unit.
+    int attackNumber;
 
     /**
      * Create a new Unit.
      *
-     * @param name The name of the character.
-     * @param health The health status of the character.
-     * @param attack The attacking of the character.
-     * @param armor The armor of the character.
+     * @param name Name of the unit
+     * @param health The health value, can't be less than 0
+     * @param attack The attacking of the unit
+     * @param armor The armor of the unit
      */
     public Unit(String name, int health, int attack, int armor) {
+        // Name can't be blank. Need to enter a name!
+        if(name.isBlank()) {
+            System.out.println("You need to give the Unit a name!");
+        }
+        // The health can't be less than 0.
+        if(health < 0) {
+            System.out.println("ERROR: The Health can't be less than 0.");
+        }
         this.name = name;
         this.health = health;
         this.attack = attack;
@@ -33,53 +43,61 @@ public abstract class Unit {
     }
 
     /**
-     * Attack that follows a certain form: Health = Health - (attack + attackBonus) + (armor + resistBonus)
+     * Attack that follows a certain form: Health = Health - (attack + attackBonus) + (armor + resistBonus).
+     *
+     * @param opponentUnit The unit that is getting attacked
      */
     protected void attack(Unit opponentUnit) {
-        this.health = this.health - (attack + getAttackBonus()) + (getArmor() + getResistBonus());
+        // Finds the Health after opponentUnit got attacked
+        opponentUnit.setHealth(
+                opponentUnit.getHealth()
+                        - (this.attack
+                        + this.getAttackBonus() + (opponentUnit.getArmor())
+                        + opponentUnit.getResistBonus()));
     }
 
 
     /**
-     * Return the name of the character.
-     * @return The name of the character.
+     * Return the name of the unit.
+     * @return The name of the unit
      */
     protected String getName() {
         return name;
     }
 
     /**
-     * Return health of the character.
-     * @return The health of the character.
+     * Return health of the unit.
+     * @return The health of the unit
      */
     protected int getHealth() {
         return health;
     }
 
     /**
-     * Return attacking of the character.
-     * @return The attacking of the character.
+     * Return attacking of the unit.
+     * @return The attacking of the unit
      */
     protected int getAttack() {
         return attack;
     }
 
     /**
-     * Return the armor of the character.
-     * @return The armor of the character.
+     * Return the armor of the unit.
+     * @return The armor of the unit
      */
     protected int getArmor () {
         return armor;
     }
 
     /**
-     * Indicate the health of the character.
-     * Health >=0
+     * Indicate the health of the unit.
+     *
+     * @param health The health can't be less den 0, if the value
+     *               is less than 0, it will be printed a String,
+     *               shown in the Unit constructor.
      */
     protected void setHealth(int health) {
-        if(health >= 0) {
-            System.exit(0);
-        }
+        this.health = health;
     }
 
     /**

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Army {
     // Name of the army
-    private String name;
+    private final String name;
     // List with Units
     private ArrayList<Unit> units;
 
@@ -23,22 +23,32 @@ public class Army {
      * @param name The name of the Army
      */
     public Army(String name) {
+        // Name can't be blank. Need to enter a name!
+        if(name.isBlank()) {
+            System.out.println("You need to give the Army a name!");
+        }
+
         this.name = name;
     }
 
     /**
      * Create a new Army with list.
      *
-     * @param name  The name of the Army
+     * @param name  The name of the Army. The name of the army can't be blank
      * @param units Created new ArrayList
      */
     public Army(String name, ArrayList<Unit> units) {
+        // Name can't be blank. Need to enter a name!
+        if(name.isBlank()) {
+            System.out.println("You need to give the Unit a name!");
+        }
+
         this.name = name;
         this.units = new ArrayList<>();
     }
 
     /**
-     * Return the name of Army
+     * Returns the name of Army
      *
      * @return name The name of the Army
      */
@@ -83,15 +93,12 @@ public class Army {
      * @return units Returns true if it contains any units
      */
     public boolean hasUnits() {
-        if(units.isEmpty()){
-            return false;
-        } else {
-            return true;
-        }
+        return !units.isEmpty();
     }
 
     /**
-     * Returns a list of all the units
+     * Returns a list of all the units.
+     *
      * @return units Returns a list of all the units
      */
     public ArrayList<Unit> getAllUnits(){
@@ -103,6 +110,7 @@ public class Army {
 
     /**
      * Returns a String with Army, name and units.
+     *
      * @return Army, name and units
      */
     @Override
@@ -114,7 +122,8 @@ public class Army {
     }
 
     /**
-     * Returns army name and army units
+     * Returns army name and army units.
+     *
      * @param o equals a object
      * @return name and army units
      */
@@ -127,17 +136,19 @@ public class Army {
     }
 
     /**
-     * Returns name and units
+     * Returns name and units.
+     *
      * @return name The name of the army
-     * @return units Returns amount of units
      */
     @Override
     public int hashCode() {
+
         return Objects.hash(name, units);
     }
 
     /**
-     *Returns a random unit from the list of units
+     * Returns a random unit from the list of units.
+     *
      * @return unit Returns a random unit from the list of units
      */
     public Unit getRandomUnit(){

@@ -2,60 +2,55 @@ package Wargames;
 
 
 /**
- * A class representing a model of an CommanderUnit. With different values.
+ * A class representing a model of an CommanderUnit. With different values for attack and armor.
  *
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022
  */
 public class CommanderUnit extends CavalryUnit{
-    // Attack value
-    private static final int ATTACK = 25;
-    // Armor value
-    private static final int ARMOR = 15;
-    // The attackBonus after an attack attempt
-    private int attackBonus;
-    // The resistBonus after receive an attack
-    private int resistBonus;
 
     /**
      * Create new CommanderUnit.
      *
-     * @param name The name of the character
-     * @param health The current health of the character
-     * @param attack The attack of the character
-     * @param armor The current armor of the character
+     * @param name The name of the unit
+     * @param health The current health of the unit
+     * @param attack The attack of the unit
+     * @param armor The current armor of the unit
      */
     public CommanderUnit(String name, int health, int attack, int armor){
         super(name, health, attack, armor);
-        this.attackBonus = getAttackBonus();
-        this.resistBonus = 1;
     }
 
     /**
-     * First attack attempt will give an attackBonus(4) + 2 points. After the first attempt
-     * it will return to the given value which is 2.
-     * @return The current attackBonus.
+     * Create new CommanderUnit. Entered the different
+     * values for attack(25) and armor(15).
+     *
+     * @param name The name of the unit
+     * @param health The current health of the unit
+     */
+    public CommanderUnit(String name, int health){
+        super(name, health, 25, 15);
+    }
+
+    /**
+     * This method inherit from CavalryUnit's method getAttackBonus.
+     *
+     * @return attackBonus The current attackBonus, based on how many
+     * numbers attacked.
      */
     @Override
     public int getAttackBonus(){
-
-        int counterAttack = 0;
-        if(counterAttack == 0) {
-            int firstAttack = attackBonus + 2;
-        } else {
-            attackBonus = 4;
-        }
-
-        return attackBonus;
+        return super.getAttackBonus();
     }
 
     /**
-     * Returns the resistBonus value.
-     * @return resistBonus Returns the resistBonus value.
+     * This method inherit from CavalryUnit's method getResistBonus.
+     *
+     * @return resistBonus Returns the resistBonus value, base
+     * on how many numbers attacked.
      */
     @Override
     public int getResistBonus(){
-
-        return resistBonus;
+        return super.getResistBonus();
     }
 }

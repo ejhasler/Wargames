@@ -2,60 +2,63 @@ package Wargames;
 
 
 /**
- * A class representing a model of an CavalryUnit. With different values.
+ * A class representing a model of an CavalryUnit. With different values for attack and armor.
  *
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022
  */
 public class CavalryUnit extends Unit{
-    // Attack value
-    private static final int ATTACK = 20;
-    // Armor value
-    private static final int ARMOR = 12;
-    // The attackBonus after an attack attempt
-    private int attackBonus;
-    // The resistBonus after receive an attack
-    private int resistBonus;
 
     /**
      * Create a new CavalryUnit.
      *
-     * @param name The name of the character
-     * @param health The current health of the character.
-     * @param attack The attack of the character
-     * @param armor The current armor of the character
+     * @param name The name of the unit
+     * @param health The current health of the unit
+     * @param attack The attack of the unit
+     * @param armor The current armor of the unit
      */
     public CavalryUnit(String name, int health, int attack, int armor){
         super(name, health, attack, armor);
-        this.attackBonus = getAttackBonus();
-        this.resistBonus = 1;
     }
 
     /**
-     * First attack attempt will give an attackBonus(4) + 2 points. After the first attempt
-     * it will return to the given value which is 2.
-     * @return The current attackBonus.
+     * Create a new CavalryUnit. With different values for attack(20) and armor(12).
+     *
+     * @param name The name of the unit
+     * @param health The current health of the unit
+     */
+    public CavalryUnit(String name, int health){
+        super(name, health, 20, 12);
+    }
+
+    /**
+     * When attackNumber equals to 1, it returns the equation (charges + melee),
+     * that equals 6 bonus.
+     * When attackNumber equals to 2 or more, it returns (melee) that equals to 2.
+     *
+     * @return bonus Returns the bonus based on numbers attacked
      */
    @Override
     public int getAttackBonus(){
+       int charged = 4;
+       int melee = 2;
+       int bonus = 0;
 
-        int counterAttack = 0;
-        if(counterAttack == 0) {
-           int firstAttack = attackBonus + 2;
-       } else {
-            attackBonus = 4;
-        }
-
-        return attackBonus;
+       if(attackNumber == 1){
+           bonus = charged + melee;
+       } else if(attackNumber >= 2) {
+           bonus = melee;
+       }
+       return bonus;
     }
 
     /**
-     * Returns the resistBonus value.
-     * @return resistBonus Returns the resistBonus value.
+     * Returns the meleeBonus value that is set to 1.
+     *
+     * @return meleeBonus Returns the meleeBonus value
      */
     @Override
     public int getResistBonus(){
-
-        return resistBonus;
+        return 1;
     }
 }
