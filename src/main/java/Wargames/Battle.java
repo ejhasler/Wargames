@@ -41,17 +41,16 @@ public class Battle {
      */
     public Army simulate() {
 
-        if(!armyOne.hasUnits() || !armyTwo.hasUnits()) {
-            System.out.println("ERROR: The armies must have units to engage the Battle!");
-        }
+        if (winner != null) throw new UnsupportedOperationException("The simulation has run!");
 
-        while(armyOne.hasUnits() || armyTwo.hasUnits()) {
+
+        while (armyOne.hasUnits() && armyTwo.hasUnits()) {
 
             Army attackingArmy;
             Army defendingArmy;
 
             int index = new Random().nextInt(2);
-            if(index == 0) {
+            if (index == 0) {
                 attackingArmy = armyOne;
                 defendingArmy = armyTwo;
             } else {
@@ -65,12 +64,17 @@ public class Battle {
             attacker.attack(defender);
 
 
-            if(defender.getHealth() <= 0) {
+            if (defender.getHealth() <= 0) {
                 defendingArmy.removeUnit(defender);
             }
 
         }
         winner = (armyOne.hasUnits()) ? armyOne : armyTwo;
+        return winner;
+
+    }
+
+    public Army getWinner(){
         return winner;
     }
 

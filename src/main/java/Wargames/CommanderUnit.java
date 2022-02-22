@@ -18,6 +18,7 @@ public class CommanderUnit extends CavalryUnit{
      * @param armor The current armor of the unit
      */
     public CommanderUnit(String name, int health, int attack, int armor){
+
         super(name, health, attack, armor);
     }
 
@@ -40,6 +41,7 @@ public class CommanderUnit extends CavalryUnit{
      */
     @Override
     public int getAttackBonus(){
+
         return super.getAttackBonus();
     }
 
@@ -51,6 +53,7 @@ public class CommanderUnit extends CavalryUnit{
      */
     @Override
     public int getResistBonus(){
+
         return super.getResistBonus();
     }
 }

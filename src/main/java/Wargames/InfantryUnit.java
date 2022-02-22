@@ -27,6 +27,7 @@ public class InfantryUnit extends Unit {
      * @param health The current health of the unit
      */
     public InfantryUnit(String name, int health) {
+
         super(name, health, 2, 1);
     }
 
@@ -47,6 +48,7 @@ public class InfantryUnit extends Unit {
      */
     @Override
     public int getResistBonus() {
+
         return 1;
     }
 

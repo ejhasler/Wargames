@@ -8,11 +8,8 @@ package Wargames;
  * @version 21.02.2022
  */
 public class RangedUnit extends Unit {
-    // RangeBonus = 3, this is an advantage this unit has.
-    int rangeBonus = 3;
-    // Has different ranges of defence, vary of how many number attacked.
-    private int rangeDefence;
 
+    int rangeDefence;
 
     /**
      * Create RangedUnit.
@@ -48,7 +45,7 @@ public class RangedUnit extends Unit {
     @Override
     public int getAttackBonus(){
 
-        return rangeBonus;
+        return 3;
     }
 
     /**
@@ -61,6 +58,7 @@ public class RangedUnit extends Unit {
      */
     @Override
     public int getResistBonus(){
+
         if(attackNumber == 1) {
             rangeDefence = 6;
         } else if(attackNumber == 2) {

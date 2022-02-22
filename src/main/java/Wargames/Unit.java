@@ -54,6 +54,7 @@ public abstract class Unit {
                         - (this.attack
                         + this.getAttackBonus() + (opponentUnit.getArmor())
                         + opponentUnit.getResistBonus()));
+        opponentUnit.attackNumber++;
     }
 
 
@@ -97,6 +98,7 @@ public abstract class Unit {
      *               shown in the Unit constructor.
      */
     protected void setHealth(int health) {
+
         this.health = health;
     }
 
