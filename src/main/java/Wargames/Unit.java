@@ -5,7 +5,7 @@ package Wargames;
  * varying defending and attacking abilities.
  *
  * @author Even Johan Pereira Haslerud
- * @version 20.02.20022
+ * @version 20.02.2022
  */
 public abstract class Unit {
     // Name of the unit.
@@ -63,6 +63,7 @@ public abstract class Unit {
      * @return The name of the unit
      */
     protected String getName() {
+
         return name;
     }
 
@@ -71,6 +72,7 @@ public abstract class Unit {
      * @return The health of the unit
      */
     protected int getHealth() {
+
         return health;
     }
 
@@ -79,6 +81,7 @@ public abstract class Unit {
      * @return The attacking of the unit
      */
     protected int getAttack() {
+
         return attack;
     }
 
@@ -87,6 +90,7 @@ public abstract class Unit {
      * @return The armor of the unit
      */
     protected int getArmor () {
+
         return armor;
     }
 

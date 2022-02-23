@@ -93,6 +93,7 @@ public class Army {
      * @return units Returns true if it contains any units
      */
     public boolean hasUnits() {
+
         return !units.isEmpty();
     }
 
@@ -105,7 +106,7 @@ public class Army {
         if(units.isEmpty()){
             System.out.println("There is no units in the list.");
         }
-       return this.units;
+       return units;
     }
 
     /**
@@ -152,7 +153,8 @@ public class Army {
      * @return unit Returns a random unit from the list of units
      */
     public Unit getRandomUnit(){
-        Random random = new Random();
-        return this.units.get(random.nextInt(this.units.size()));
+        if(hasUnits())
+            return units.get(new Random().nextInt(units.size()));
+        return null;
     }
 }

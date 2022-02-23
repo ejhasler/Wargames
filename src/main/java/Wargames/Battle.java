@@ -17,10 +17,6 @@ public class Battle {
 
     private Army winner;
 
-    private String attackingArmy;
-
-    private String defendingArmy;
-
     /**
      * Create a new battle between armyOne and armyTwo
      *
@@ -28,6 +24,9 @@ public class Battle {
      * @param armyTwo The second army with units
      */
     public Battle(Army armyOne, Army armyTwo) {
+        if(!armyOne.hasUnits() && !armyTwo.hasUnits()) {
+            throw new IllegalArgumentException("Both of the armies must have units!!");
+        }
         this.armyOne = armyOne;
         this.armyTwo = armyTwo;
     }
@@ -69,11 +68,17 @@ public class Battle {
             }
 
         }
-        winner = (armyOne.hasUnits()) ? armyOne : armyTwo;
-        return winner;
-
+        if(armyOne.hasUnits() && !armyTwo.hasUnits()){
+            return armyOne;
+        } else {
+            return armyTwo;
+        }
     }
 
+    /**
+     * Returns the winner of the Battle Simulate.
+     * @return winner The winner of the Battle Simulate
+     */
     public Army getWinner(){
         return winner;
     }
