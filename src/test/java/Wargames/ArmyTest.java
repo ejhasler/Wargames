@@ -10,8 +10,41 @@ import static org.junit.Assert.*;
 
 public class ArmyTest {
 
+    /**
+     * test if i can add units to the army. test success.
+     */
+    @Test
+   public void testAdd() {
+        InfantryUnit unit = new InfantryUnit("Test Unit", 100);
+        Army army = new Army("Test Army");
+        army.addUnit(unit);
 
-    // Tester ved å fjerne en en unit og ser om de to forskjellige listene er like.
+        assertTrue(army.hasUnits());
+    }
+
+
+    /**
+     * test to add all Units. Test success.
+     */
+    @Test
+    public void testAddAll() {
+        ArrayList<Unit> units = new ArrayList<Unit>();
+        InfantryUnit unit1 = new InfantryUnit("Test Unit 1", 100);
+        InfantryUnit unit2 = new InfantryUnit("Test Unit 2", 100);
+
+        units.add(unit1);
+        units.add(unit2);
+
+        Army army = new Army("Test Army");
+
+        army.addAll(units);
+
+        assertEquals(units, army.getAllUnits());
+    }
+
+    /**
+     * Test to remove a unit. test success.
+     */
     @Test
     public void removeUnit() {
         RangedUnit rangedUnit = new RangedUnit("RangedUnit", 100);
@@ -35,7 +68,10 @@ public class ArmyTest {
         assertEquals(army1, army2);
     }
 
-    // Tester om hasUnits viser til listen som er satt opp og returnerer true.
+
+    /**
+     * test if hasUnits shows to the list and returns true. Test success.
+     */
     @Test
      public void hasUnits1() {
 
@@ -50,10 +86,14 @@ public class ArmyTest {
 
         Army army = new Army("army", units);
 
-        assertEquals(false, army.hasUnits());
+        army.addAll(units);
+
+        assertEquals(true, army.hasUnits());
     }
 
-    // Oppretter en tom liste hvor det skal returnere false
+    /**
+     * Creates an empty list at should return false. test success.
+     */
     @Test
             public void hasUnits2() {
 
@@ -64,9 +104,9 @@ public class ArmyTest {
         assertFalse(army.hasUnits());
     }
 
-    // Sjekker om random utigr riktig verdier. Måtte endre koden
-    // inne i army klassen, siden jeg ikke fikk et positiv integer ved getRandom. Årsaken til feilen
-    // istad var for at inne i nextInt var tom og det var ingenting å hente...
+    /**
+     * check of random gives right values. Test success.
+     */
     @Test
     public void randomUnit(){
         RangedUnit rangedUnit = new RangedUnit("RangedUnit", 100);
@@ -83,6 +123,9 @@ public class ArmyTest {
         System.out.println(army1.getRandomUnit());
     }
 
+    /**
+     * return all units listed. Test success.
+     */
     @Test
     public void getAllUnits() {
 
@@ -97,6 +140,9 @@ public class ArmyTest {
 
         Army army1 = new Army("army", units);
 
-        assertEquals(army1.getAllUnits(), units);
+        army1.addAll(units);
+
+        assertEquals(units, army1.getAllUnits());
     }
+    
 }

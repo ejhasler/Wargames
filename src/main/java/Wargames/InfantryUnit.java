@@ -2,6 +2,7 @@ package Wargames;
 
 /**
  * A class representing a model of an Infantry Unit. With different values for attack and armor.
+ * Closed ranged unit with no special abilities.
  *
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022
@@ -17,6 +18,7 @@ public class InfantryUnit extends Unit {
      * @param armor The current armor of the unit
      */
     public InfantryUnit(String name, int health, int attack, int armor) {
+
         super(name, health, attack, armor);
     }
 
@@ -28,7 +30,7 @@ public class InfantryUnit extends Unit {
      */
     public InfantryUnit(String name, int health) {
 
-        super(name, health, 2, 1);
+        super(name, health, 15, 10);
     }
 
     /**
@@ -38,6 +40,7 @@ public class InfantryUnit extends Unit {
      */
     @Override
     public int getAttackBonus() {
+
         return 2;
     }
 

@@ -3,6 +3,7 @@ package Wargames;
 
 /**
  * A class representing a model of an RangedUnit. With different values for attack and armor.
+ * This Unit has the ability to attack at range.
  *
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022

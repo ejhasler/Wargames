@@ -1,5 +1,6 @@
 package Wargames;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Random;
 import java.util.ArrayList;
@@ -25,10 +26,11 @@ public class Army {
     public Army(String name) {
         // Name can't be blank. Need to enter a name!
         if(name.isBlank()) {
-            System.out.println("You need to give the Army a name!");
+            throw new IllegalArgumentException("No army!");
         }
 
         this.name = name;
+        units = new ArrayList<Unit>();
     }
 
     /**
@@ -40,7 +42,7 @@ public class Army {
     public Army(String name, ArrayList<Unit> units) {
         // Name can't be blank. Need to enter a name!
         if(name.isBlank()) {
-            System.out.println("You need to give the Unit a name!");
+            throw new IllegalArgumentException("No army!");
         }
 
         this.name = name;
@@ -61,8 +63,8 @@ public class Army {
      *
      * @param unit the Units to add
      */
-    public void addUnit(Unit unit) {
-        units.add(unit);
+    public boolean addUnit(Unit unit) {
+        return this.units.add(unit);
     }
 
     /**
@@ -71,10 +73,8 @@ public class Army {
      *
      * @param units Adds all units
      */
-    public void addAll(ArrayList<Unit> units) {
-        for(Unit unit : units) {
-            this.units.addAll(units);
-        }
+    public boolean addAll(ArrayList<Unit> units) {
+        return this.units.addAll(units);
     }
 
     /**
@@ -93,7 +93,6 @@ public class Army {
      * @return units Returns true if it contains any units
      */
     public boolean hasUnits() {
-
         return !units.isEmpty();
     }
 
@@ -103,9 +102,7 @@ public class Army {
      * @return units Returns a list of all the units
      */
     public ArrayList<Unit> getAllUnits(){
-        if(units.isEmpty()){
-            System.out.println("There is no units in the list.");
-        }
+
        return units;
     }
 
@@ -148,12 +145,15 @@ public class Army {
     }
 
     /**
-     * Returns a random unit from the list of units.
+     * Returns a random unit from the list of units. If it's
+     * no units it will get thrown an Exception.
      *
      * @return unit Returns a random unit from the list of units
      */
     public Unit getRandomUnit(){
-        if(hasUnits())
+        if(!hasUnits()) {
+            throw new NoSuchElementException("Army has no units!");
+        } else if(hasUnits())
             return units.get(new Random().nextInt(units.size()));
         return null;
     }

@@ -3,6 +3,10 @@ package Wargames;
 
 /**
  * A class representing a model of an CavalryUnit. With different values for attack and armor.
+ * Cavalry Units are a bit stronger units with a charge attack at their first attack, it will
+ * deal 4+2 bonus damage, and after they will have 2 bonus damage.
+ *
+ * And have a +1 resist bonus advantage when getting attacked.
  *
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022

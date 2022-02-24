@@ -40,4 +40,20 @@ public class CommanderUnitTest {
 
         assertEquals(2, commanderUnit.getAttackBonus());
     }
+
+    /**
+     * testing full creation of the Commander unit. Test Success.
+     */
+    @Test
+    public void testFullCreationOfCommanderUnit() {
+        String name = "Commander Unit";
+        int health = 100;
+        int attack = 5;
+        int armor = 8;
+        CommanderUnit unit = new CommanderUnit(name, health, attack, armor);
+        assertEquals(name, unit.getName());
+        assertEquals(health, unit.getHealth());
+        assertEquals(attack, unit.getAttack());
+        assertEquals(armor, unit.getArmor());
+    }
 }

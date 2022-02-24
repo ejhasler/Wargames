@@ -11,7 +11,9 @@ public class RangedUnitTest {
 
     RangedUnit rangedUnit = new RangedUnit("Even", 100);
 
-    // Test for å sjekke at getAttackBonus endres etter 1 attack til 6.
+    /**
+     * Test to check if getAttackBonus changes after first attack to 6. Test success.
+     */
     @Test
     public void getResistBonus() {
         CommanderUnit commanderUnit = new CommanderUnit("CommanderUnit", 50);
@@ -22,7 +24,9 @@ public class RangedUnitTest {
         assertEquals(6, rangedUnit.getResistBonus());
     }
 
-    // Test for å sjekke at getAttackBonus endres etter 2 attack til 4.
+    /**
+     * Test to check if getAttackBonus changes second attack to 4. Test success.
+     */
     @Test
     public void getResistBonus2() {
         CommanderUnit commanderUnit = new CommanderUnit("CommanderUnit", 100);
@@ -34,7 +38,9 @@ public class RangedUnitTest {
         assertEquals(4, rangedUnit.getResistBonus());
     }
 
-    // Test for å sjekke at getAttackBonus endres etter 3 attack til 2.
+    /**
+     * Test to check if getAttackBonus changes after third attack to 2. Test success.
+     */
     @Test
     public void getResistBonus3() {
         CommanderUnit commanderUnit = new CommanderUnit("CommanderUnit", 100);
@@ -47,7 +53,9 @@ public class RangedUnitTest {
         assertEquals(2, rangedUnit.getResistBonus());
     }
 
-    // Test for å sjekke at getAttackBonus returnerer verdien 3.
+    /**
+     * test to check that getAttackbonus returns value 3. Test success.
+     */
     @Test
     public void getAttackBonus1() {
         CommanderUnit commanderUnit = new CommanderUnit("CommanderUnit", 100);
@@ -56,5 +64,21 @@ public class RangedUnitTest {
         rangedUnit.attack(rangedUnit);
 
         assertEquals(3, rangedUnit.getAttackBonus());
+    }
+
+    /**
+     * testing full creation of the Ranged Unit. Test Success.
+     */
+    @Test
+    public void testFullCreationOfRangedUnit() {
+        String name = "Ranged Unit";
+        int health = 100;
+        int attack = 5;
+        int armor = 8;
+        RangedUnit unit = new RangedUnit(name, health, attack, armor);
+        assertEquals(name, unit.getName());
+        assertEquals(health, unit.getHealth());
+        assertEquals(attack, unit.getAttack());
+        assertEquals(armor, unit.getArmor());
     }
 }

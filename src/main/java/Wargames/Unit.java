@@ -9,13 +9,13 @@ package Wargames;
  */
 public abstract class Unit {
     // Name of the unit.
-    private String name;
+    private final String name;
     // Health of the unit.
     private int health;
     // Attacking of the unit.
-    private int attack;
+    private final int attack;
     // The armor of the unit.
-    private int armor;
+    private final int armor;
     // How many times it's been unit.
     int attackNumber;
 
@@ -26,15 +26,22 @@ public abstract class Unit {
      * @param health The health value, can't be less than 0
      * @param attack The attacking of the unit
      * @param armor The armor of the unit
+     * @throws IllegalArgumentException Throws arguments if values are entered that is not in the right range
      */
     public Unit(String name, int health, int attack, int armor) {
         // Name can't be blank. Need to enter a name!
         if(name.isBlank()) {
-            System.out.println("You need to give the Unit a name!");
+            throw new IllegalArgumentException("Name can't be Blank!");
         }
-        // The health can't be less than 0.
-        if(health < 0) {
-            System.out.println("ERROR: The Health can't be less than 0.");
+        // The health can't be less or equal than 0.
+        if(health <= 0) {
+            throw new IllegalArgumentException("ERROR: The Health can't be entered as less than or equal 0.");
+        }
+        if(attack < 0) {
+            throw new IllegalArgumentException("Attack can't be negative!");
+        }
+        if(armor < 0) {
+            throw new IllegalArgumentException("Armor can't be negative!");
         }
         this.name = name;
         this.health = health;
@@ -48,6 +55,10 @@ public abstract class Unit {
      * @param opponentUnit The unit that is getting attacked
      */
     protected void attack(Unit opponentUnit) {
+        // The attackDamage
+        int attackDamage = this.getAttack() + this.getAttackBonus();
+        // The resist
+        int resistance = opponentUnit.getArmor() + opponentUnit.getResistBonus();
         // Finds the Health after opponentUnit got attacked
         opponentUnit.setHealth(
                 opponentUnit.getHealth()
@@ -121,13 +132,13 @@ public abstract class Unit {
     }
 
     /**
-     * Return attack bonus.
+     * Returns the current attack bonus of the Unit.
      * @return attack bonus
      */
     abstract protected int getAttackBonus();
 
     /**
-     * Return resist bonus.
+     * Returns the current resist bonus of the Unit.
      * @return resist bonus.
      */
     abstract protected int getResistBonus();
