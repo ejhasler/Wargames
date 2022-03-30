@@ -1,9 +1,6 @@
 package Wargames;
 
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Random;
-import java.util.ArrayList;
+import java.util.*;
 
 
 /**
@@ -12,11 +9,11 @@ import java.util.ArrayList;
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022
  */
-public class Army {
+public class Army{
+    private HashSet<Unit> units;
     // Name of the army
     private final String name;
     // List with Units
-    private ArrayList<Unit> units;
 
     /**
      * Create a new Army.
@@ -30,7 +27,7 @@ public class Army {
         }
 
         this.name = name;
-        units = new ArrayList<Unit>();
+       this.units = new HashSet<>();
     }
 
     /**
@@ -46,7 +43,7 @@ public class Army {
         }
 
         this.name = name;
-        this.units = new ArrayList<>();
+        this.units = new HashSet<>();
     }
 
     /**
@@ -55,7 +52,7 @@ public class Army {
      * @return name The name of the Army
      */
     protected String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -64,6 +61,9 @@ public class Army {
      * @param unit the Units to add
      */
     public boolean addUnit(Unit unit) {
+        if(unit == null){
+            throw new IllegalArgumentException("Unit cannot be null");
+        }
         return this.units.add(unit);
     }
 
@@ -73,8 +73,11 @@ public class Army {
      *
      * @param units Adds all units
      */
-    public boolean addAll(ArrayList<Unit> units) {
-        return this.units.addAll(units);
+    public void addAll(List<Unit> allUnits) {
+        if(allUnits == null){
+            throw new IllegalArgumentException("allUnits cannot be null");
+        }
+        this.units.addAll(allUnits);
     }
 
     /**
@@ -157,4 +160,37 @@ public class Army {
             return units.get(new Random().nextInt(units.size()));
         return null;
     }
+
+    /**
+     * Calculates the sum of the Infantry Units.
+     *
+     */
+    public String getInfantryUnit(){
+        return this.units
+    }
+
+    /**
+     * Calculates the sum of the Cavalry Units.
+     *
+     */
+    public String getCavalryUnit(){
+        return this.units
+    }
+
+    /**
+     * Calculates the sum of the Ranged Units.
+     *
+     */
+    public String getRangedUnit(){
+        return this.units
+    }
+
+    /**
+     * Calculates the sum of the Commander Units.
+     *
+     */
+    public String getCommanderUnit(){
+        return this.units
+    }
+
 }

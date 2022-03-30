@@ -1,22 +1,17 @@
 package Wargames;
 
+import Wargames.model.*;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class UnitTest {
-
-@Test
-    public void testAttackWontGiveHealthIfResistantIsGreaterthanAttackDamage() {
-
-}
 
     /**
      * Checks if the units is not blank. test Success.
      */
     @Test
-    public void testToStringMethodOfUnit() {
+    public void testMethodOfUnitIsNotBlank() {
     Unit unit = new InfantryUnit("Unit", 100);
     assertTrue(!unit.toString().isBlank());
 }
@@ -81,5 +76,6 @@ public class UnitTest {
         assertEquals(attack, unit.getAttack());
         assertEquals(armor, unit.getArmor());
     }
+
 }
 

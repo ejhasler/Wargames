@@ -1,8 +1,8 @@
 package Wargames;
 
+import Wargames.model.*;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -120,6 +120,8 @@ public class ArmyTest {
 
         Army army1 = new Army("army", units);
 
+        army1.addAll(units);
+
         System.out.println(army1.getRandomUnit());
     }
 
@@ -144,5 +146,5 @@ public class ArmyTest {
 
         assertEquals(units, army1.getAllUnits());
     }
-    
+
 }

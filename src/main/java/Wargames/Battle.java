@@ -1,6 +1,5 @@
 package Wargames;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -11,11 +10,10 @@ import java.util.Random;
  */
 public class Battle {
     // The first Army of the units
-    private Army armyOne;
+    private final Army armyOne;
     // The second Army of the units
-    private Army armyTwo;
+    private final Army armyTwo;
 
-    private Army winner;
 
     /**
      * Create a new battle between armyOne and armyTwo
@@ -39,8 +37,6 @@ public class Battle {
      * U can't engage a battle if not entered units.
      */
     public Army simulate() {
-
-        if (winner != null) throw new UnsupportedOperationException("The simulation has run!");
 
 
         while (armyOne.hasUnits() && armyTwo.hasUnits()) {
@@ -75,13 +71,6 @@ public class Battle {
         }
     }
 
-    /**
-     * Returns the winner of the Battle Simulate.
-     * @return winner The winner of the Battle Simulate
-     */
-    public Army getWinner(){
-        return winner;
-    }
 
     /**
      * Returns a String with Battle, armyOne and armyTwo

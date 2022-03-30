@@ -11,7 +11,7 @@ package Wargames;
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022
  */
-public class CavalryUnit extends Unit{
+public class CavalryUnit extends Unit {
 
     /**
      * Create a new CavalryUnit.

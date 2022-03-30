@@ -2,8 +2,6 @@ package Wargames;
 
 import org.junit.Test;
 
-import java.util.Locale;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

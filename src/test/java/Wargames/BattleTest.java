@@ -1,6 +1,6 @@
 package Wargames;
 
-import org.junit.BeforeClass;
+import Wargames.model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
