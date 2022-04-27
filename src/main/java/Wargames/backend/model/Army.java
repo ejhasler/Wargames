@@ -52,7 +52,7 @@ public class Army{
      *
      * @return name The name of the Army
      */
-    protected String getName() {
+    public String getName() {
         return this.name;
     }
 
