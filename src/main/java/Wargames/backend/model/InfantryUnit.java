@@ -1,4 +1,4 @@
-package Wargames;
+package Wargames.backend.model;
 
 /**
  * A class representing a model of an Infantry Unit. With different values for attack and armor.

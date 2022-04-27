@@ -1,5 +1,7 @@
 package Wargames;
 
+import Wargames.backend.model.CommanderUnit;
+import Wargames.backend.model.InfantryUnit;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

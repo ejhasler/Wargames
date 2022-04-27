@@ -1,5 +1,11 @@
-package Wargames;
+package Wargames.model;
 
+
+import Wargames.backend.model.CavalryUnit;
+import Wargames.backend.model.CommanderUnit;
+import Wargames.backend.model.InfantryUnit;
+import Wargames.backend.model.RangedUnit;
+import Wargames.backend.model.Unit;
 import Wargames.model.*;
 import org.junit.Test;
 

@@ -1,16 +1,17 @@
-package Wargames;
+package Wargames.backend.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
- * A class representing an Army.
+ * A class representing an Army of units.
  *
  * @author Even Johan Pereira Haslerud
  * @version 21.02.2022
  */
 public class Army{
-    private HashSet<Unit> units;
+    private List<Unit> units;
     // Name of the army
     private final String name;
     // List with Units
@@ -27,11 +28,11 @@ public class Army{
         }
 
         this.name = name;
-       this.units = new HashSet<>();
+       this.units = new ArrayList<>();
     }
 
     /**
-     * Create a new Army with list.
+     * Creates an instance of the Army.
      *
      * @param name  The name of the Army. The name of the army can't be blank
      * @param units Created new ArrayList
@@ -43,7 +44,7 @@ public class Army{
         }
 
         this.name = name;
-        this.units = new HashSet<>();
+        this.units = new ArrayList<>();
     }
 
     /**
@@ -71,7 +72,7 @@ public class Army{
      * Adds all units from the input-list "units" to the list
      * with units.
      *
-     * @param units Adds all units
+     * @param allUnits Adds all units
      */
     public void addAll(List<Unit> allUnits) {
         if(allUnits == null){
@@ -104,7 +105,7 @@ public class Army{
      *
      * @return units Returns a list of all the units
      */
-    public ArrayList<Unit> getAllUnits(){
+    public List<Unit> getAllUnits(){
 
        return units;
     }
@@ -162,35 +163,50 @@ public class Army{
     }
 
     /**
-     * Calculates the sum of the Infantry Units.
+     * Returns all the values of the given unit, which here is
+     * InfantryUnit
      *
      */
-    public String getInfantryUnit(){
-        return this.units
+    public List<Unit> getInfantryUnit(){
+        return getAllUnits().stream()
+                .filter(unit -> unit instanceof InfantryUnit)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Calculates the sum of the Cavalry Units.
+     * Returns all the values of the given unit, which here is
+     * CavalryUnit.
      *
+     * @return all the values of the given unit.
      */
-    public String getCavalryUnit(){
-        return this.units
+    public List<Unit> getCavalryUnit(){
+        return getAllUnits().stream()
+                .filter(unit -> unit instanceof CavalryUnit)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Calculates the sum of the Ranged Units.
+     * Returns all the values of the given unit, which here is
+     * RangedUnit
      *
+     * @return all the values of the given unit.
      */
-    public String getRangedUnit(){
-        return this.units
+    public List<Unit> getRangedUnit(){
+        return getAllUnits().stream()
+                .filter(unit -> unit instanceof RangedUnit)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Calculates the sum of the Commander Units.
+     * Returns all the values of the given unit, which here is
+     * CommanderUnit
      *
+     * @return all the values of the given unit.
      */
-    public String getCommanderUnit(){
-        return this.units
+    public List<Unit> getCommanderUnit(){
+        return getAllUnits().stream()
+                .filter(unit -> unit instanceof CommanderUnit)
+                .collect(Collectors.toList());
     }
 
 }

@@ -1,5 +1,12 @@
 package Wargames;
 
+
+import Wargames.backend.model.Army;
+import Wargames.backend.model.CavalryUnit;
+import Wargames.backend.model.CommanderUnit;
+import Wargames.backend.model.InfantryUnit;
+import Wargames.backend.model.RangedUnit;
+import Wargames.backend.model.Unit;
 import Wargames.model.*;
 import org.junit.Test;
 
@@ -9,6 +16,7 @@ import static org.junit.Assert.*;
 
 
 public class ArmyTest {
+
 
     /**
      * test if i can add units to the army. test success.
@@ -147,4 +155,18 @@ public class ArmyTest {
         assertEquals(units, army1.getAllUnits());
     }
 
+    /**
+     * Testing if streams & lambda with getInfantryUnit returns list of unit.
+     */
+    @Test
+    public void getInfantryUnit(){
+        Army army = new Army("Army1");
+
+       army.addUnit(new InfantryUnit("InfantryUnit", 100));
+       army.addUnit(new CavalryUnit("CavalryUnit", 100));
+
+
+
+
+    }
 }

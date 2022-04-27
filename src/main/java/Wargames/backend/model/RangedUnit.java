@@ -1,4 +1,4 @@
-package Wargames;
+package Wargames.backend.model;
 
 
 /**
