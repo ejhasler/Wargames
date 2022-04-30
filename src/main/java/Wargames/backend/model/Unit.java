@@ -195,5 +195,4 @@ public abstract class Unit {
      */
     abstract protected int getResistBonus();
 
-
 }
