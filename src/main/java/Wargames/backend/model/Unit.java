@@ -31,7 +31,7 @@ public abstract class Unit {
      * @param armor The armor of the unit
      * @throws IllegalArgumentException Throws arguments if values are entered that is not in the right range
      */
-    public Unit(String name, int health, int attack, int armor) {
+    protected Unit(String name, int health, int attack, int armor) {
         // A good recommended practice is to always use set-methods in the
         // constructors, and to make sure that the set-methods performs the
         // necessary validity-checks on the parameter.

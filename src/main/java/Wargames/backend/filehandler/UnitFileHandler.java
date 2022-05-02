@@ -1,9 +1,12 @@
 package Wargames.backend.filehandler;
 
+
 import Wargames.backend.model.Army;
 import Wargames.backend.model.Unit;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -34,108 +39,95 @@ public class UnitFileHandler {
   // Logger used for debugging
   private static final Logger logger = Logger.getLogger(UnitFileHandler.class.getName());
 
-  public enum CSV_ARMY {
-    ARMY_NAME, UNIT_ARMY, UNIT_NAME, UNIT_HEALTH
-  }
-
-  public static final HashMap<String, CSV_ARMY> CSV_FIELD_HEADER = new HashMap<>();
-  static {
-    CSV_FIELD_HEADER.put("Army Name", CSV_ARMY.ARMY_NAME);
-    CSV_FIELD_HEADER.put("Army Unit", CSV_ARMY.UNIT_ARMY);
-    CSV_FIELD_HEADER.put("Unit Name", CSV_ARMY.UNIT_NAME);
-    CSV_FIELD_HEADER.put("Unit Health", CSV_ARMY.UNIT_HEALTH);
-  }
-
   /**
-   * Make the constructor private to avoid the possibility to
-   * create an object from this class. Creating an object is not necessary
-   * since all methods in the class are class-methods (static).
+   * Create a UnitFileHandler
    */
-  private UnitFileHandler() {
+  public UnitFileHandler() {
     // Intentionally left empty
   }
 
   /**
-   * Exports the address book to a .csv file. The first line holds the
-   * titles of the columns: Name, Phone and Address
-   *
-   * @param army the address book to export
-   * @param file        the file to export the address book to
-   * @throws IOException if the file exists but is a directory rather than a regular file,
-   *                     does not exist but cannot be created,
-   *                     or cannot be opened for any other reason
-   */
-  public static void exportToCsv(Army army, File file) throws IOException {
-
-    FileWriter writer = new FileWriter(file);
-    PrintWriter printWriter = new PrintWriter(writer);
-    // Save the column titles.
-    printWriter.println("Name" + CSV_DELIMITER + "Phone" + CSV_DELIMITER + "Address");
-
-    for (Unit unit : army.getAllUnits()) {
-      printWriter.print(army.getName() + CSV_DELIMITER);
-      printWriter.print(unit.getName() + CSV_DELIMITER);
-      printWriter.println(unit.getHealth() + CSV_DELIMITER);
-    }
-
-    printWriter.close();
-  }
-
-  /**
-   * Import contacts from a CSV-file into en existing address book given
+   * Import armies from a CSV-file into en existing unit given
    * by the parameter.
-   * The first line is expected to hold the titles of the columns: "Name, Phone and Address
+   * The first line is expected to hold the titles of the columns: ?
    *
-   * @param army the address book to import contacts into
+   * @param army the army to import contacts into
    * @param file        the file to import from
-   * @throws IOException if an I/O error occurs opening the file
+   * @throws IOException if an I/O error occurs if the file was not found
    */
-  public static void importArmyFromCsv(Army army, File file) throws IOException {
+  public static void importArmyFromCSV(Army army, File file) throws IOException {
     // NOTE: I am using a try block here with no catch-block since
     // I want the exception to be sent to the caller of the method.
     // I could have left out the try-block entirely, BUT that could result in the
     // file not being closed in case of an exception being thrown
     // Hence, always use a try-with-resource when dealing with IO and resources like files,
     // even though you cannot handle a thrown exception in this method.
-    try(BufferedReader reader = Files.newBufferedReader((file.toPath()))) {
-      // The first line read is the column title line, and should
-      // not be parsed as ContactDetails
-      boolean isTitleLine = true;
-      String lineOfText = reader.readLine();
-      while (lineOfText != null) {
-        if (!isTitleLine) {
-          Army army = parseStringAsArmy(lineOfText);
-          army.addUnit(unit);
-        } else {
-          isTitleLine = false;
-        }
-        lineOfText = reader.readLine();
+    Charset charset = Charset.forName("US-ASCII");
+    Path path = Path.of(CSV_DELIMITER);
+
+    try {
+      BufferedReader reader =
+          Files.newBufferedReader(path, charset);
+
+      String lineOfText;
+
+      while ((lineOfText = reader.readLine()) != null) {
+        System.out.println(lineOfText);
       }
+      reader.close();
+    } catch (FileNotFoundException e) {
+      // File does not exist.
+      System.err.println("File was not found...");
     }
+
+    catch (IOException e){
+      System.err.println("A problem was encountered reading " + CSV_DELIMITER);
+    }
+
   }
 
   /**
-   * Parses a string to convert the string to an instance of ContactDetails.
+   * Exports the Army to a .csv file. The first line holds the
+   * titles of the columns: Army Name, Unit Type, Unit Name and Unit Health
    *
-   * @param line the line of text holding the CSV-separated fields making up a contact
-   * @return an instance of ContactDetails created from the line provided
-   * @throws UnitFormatException if the string cannot be parsed as ContactDetails
+   * @param army the address book to export
+   * @param file        the file to export the Army to
+   * @throws IOException if the file exists but is a directory rather than a regular file,
+   *                     does not exist but cannot be created,
+   *                     or cannot be opened for any other reason
    */
-  private static Army parseStringAsArmy(String line) {
-    Army army;
-    String[] subStrings = line.split(CSV_DELIMITER);
-    if (subStrings.length == 3){
-      army = new Army(subStrings[0], subStrings[1], subStrings[2]);
-    } else {
-      throw new UnitFormatException();
+  public static void exportArmyToCSV(Army army, File file) throws IOException {
+
+    // Here I'm using PrintWriter's methods because PrintWriter's
+    // print and println methods can accept parameters of any type,
+    // while the write method of BufferedWriter can only accept characters,
+    // array of characters, and strings. And PrintWriter's println method
+    // automatically adds line wrapping, BufferedWriter needs to display
+    // the calling newline method. And the PrintWriter is more widely constructed.
+    try {
+      FileWriter filewriter = new FileWriter(file);
+      PrintWriter writer = new PrintWriter(filewriter);
+
+      writer.println("Army Name" + CSV_DELIMITER +
+                     "Unit Type" + CSV_DELIMITER +
+                     "Unit Name" + CSV_DELIMITER +
+                     "Unit Health" + CSV_DELIMITER);
+
+      for (Unit unit : army.getAllUnits()) {
+        writer.print(unit.getName() + CSV_DELIMITER);
+        writer.print(unit.getHealth() + CSV_DELIMITER);
+      }
+
+      writer.close();
+    } catch (IOException e) {
+      System.err.println("File could not be created...");
     }
-    return unit;
   }
 
   /**
-   * Saves an entire address book to the given file using object serialization.
+   * Saves an entire army to the given file using object serialization.
    *
-   * @param army the address book to save
+   * @param army the army to save
    * @param file        the file to save the address book to
    * @throws IOException if an I/O error occurs while writing to file
    */
@@ -147,33 +139,16 @@ public class UnitFileHandler {
     // Hence, always use a try-with-resource when dealing with IO and resources like files,
     // even though you cannot handle a thrown exception in this method.
     try (OutputStream outputStream = Files.newOutputStream(file.toPath())) {
-      ObjectOutputStream objectOutStream = new ObjectOutputStream(outputStream);
-      objectOutStream.writeObject(army);
+      ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+      objectOutputStream.writeObject(army);
     }
   }
 
-  /**
-   * Loads an entire address book from a given file using object serialization.
-   * If the file cannot bbe read for some reason, an empty address book
-   * is returned.
-   *
-   * @param inFile the file from which the address book will be loaded
-   * @return an instance of AddressBook holding all contacts loaded from the file
-   */
-  public static Army loadFromFile(File inFile) {
-    // NOTE: I am using a try block here with no catch-block since
-    // I want the exception to be sent to the caller of the method.
-    // I could have left out the try-block entirely, BUT that could result in the
-    // file not being closed in case of an exception being thrown
-    // Hence, always use a try-with-resource when dealing with IO and resources like files,
-    // even though you cannot handle a thrown exception in this method.
-    try (InputStream inputStream = Files.newInputStream(inFile.toPath())) {
-      ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-      return (Army) objectInputStream.readObject();
-    } catch (IOException | ClassNotFoundException e) {
-      logger.log(Level.INFO, () -> "Could not open file "
-          + inFile.getName() + ". An empty AddressBook was returned.");
-      return new ArmyPlain();
-    }
+  public static void main(String[] args) throws IOException {
+    String path = System.getProperty("IntelliJ");
+    File file = new File(path + "\\SkoleArbeid" + "\\Wargames"+ "\\Text.csv");
+    file.createNewFile();
+    file.mkdir();
   }
+
 }
