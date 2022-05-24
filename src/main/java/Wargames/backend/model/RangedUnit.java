@@ -1,6 +1,8 @@
 package Wargames.backend.model;
 
 
+import javafx.util.Pair;
+
 /**
  * A class representing a model of an RangedUnit. With different values for attack and armor.
  * This Unit has the ability to attack at range.
@@ -10,10 +12,13 @@ package Wargames.backend.model;
  */
 public class RangedUnit extends Unit {
 
+    private static final String UNIT_TYPE = "Ranged";
+
     int rangeDefence;
 
     /**
      * Create RangedUnit.
+     *
      * @param name The name of the unit
      * @param health The current health of the unit
      * @param attack The attack of the unit
@@ -22,6 +27,14 @@ public class RangedUnit extends Unit {
     public RangedUnit(String name, int health, int attack, int armor){
 
         super(name, health, attack, armor);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getUnitType() {
+        return UNIT_TYPE;
     }
 
     /**
@@ -46,7 +59,7 @@ public class RangedUnit extends Unit {
     @Override
     public int getAttackBonus(){
 
-        return 3;
+        return 3 + getTerrainBonusAttackDefence().getKey();
     }
 
     /**
@@ -61,12 +74,30 @@ public class RangedUnit extends Unit {
     public int getResistBonus(){
 
         if(attackNumber == 1) {
-            rangeDefence = 6;
+            rangeDefence = 6 + getTerrainBonusAttackDefence().getKey();
         } else if(attackNumber == 2) {
-            rangeDefence = 4;
+            rangeDefence = 4 + getTerrainBonusAttackDefence().getKey();
         } else if (attackNumber >= 3) {
-            rangeDefence = 2;
+            rangeDefence = 2 + getTerrainBonusAttackDefence().getKey();
         }
         return rangeDefence;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Pair<Integer, Integer> getTerrainBonusAttackDefence() {
+        int attack;
+        if (getTerrain().equalsIgnoreCase("HILL")){
+            attack = 3;
+        } else if (getTerrain().equalsIgnoreCase("FOREST")){
+            attack = -2;
+        } else {
+            attack = 0;
+        }
+        return new Pair<>(attack,0);
     }
 }

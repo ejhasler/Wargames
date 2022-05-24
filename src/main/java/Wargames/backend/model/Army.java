@@ -1,7 +1,6 @@
 package Wargames.backend.model;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 /**
@@ -13,8 +12,9 @@ import java.util.stream.Collectors;
 public class Army{
     private List<Unit> units;
     // Name of the army
-    private final String name;
+    private String name;
     // List with Units
+
 
     /**
      * Create a new Army.
@@ -37,13 +37,17 @@ public class Army{
      * @param name  The name of the Army. The name of the army can't be blank
      * @param units Created new ArrayList
      */
-    public Army(String name, ArrayList<Unit> units) {
+    public Army(String name, List<Unit> units) {
         // Name can't be blank. Need to enter a name!
         if(name.isBlank()) {
             throw new IllegalArgumentException("No army!");
         }
 
         this.name = name;
+        this.units = new ArrayList<>();
+    }
+
+    public Army(){
         this.units = new ArrayList<>();
     }
 
@@ -61,11 +65,11 @@ public class Army{
      *
      * @param unit the Units to add
      */
-    public boolean addUnit(Unit unit) {
+    public void addUnit(Unit unit) {
         if(unit == null){
             throw new IllegalArgumentException("Unit cannot be null");
         }
-        return this.units.add(unit);
+        this.units.add(unit);
     }
 
     /**
@@ -169,8 +173,7 @@ public class Army{
      */
     public List<Unit> getInfantryUnit(){
         return getAllUnits().stream()
-                .filter(unit -> unit instanceof InfantryUnit)
-                .collect(Collectors.toList());
+            .filter(InfantryUnit.class::isInstance).toList();
     }
 
     /**
@@ -181,8 +184,7 @@ public class Army{
      */
     public List<Unit> getCavalryUnit(){
         return getAllUnits().stream()
-                .filter(unit -> unit instanceof CavalryUnit)
-                .collect(Collectors.toList());
+            .filter(CavalryUnit.class::isInstance).toList();
     }
 
     /**
@@ -193,8 +195,7 @@ public class Army{
      */
     public List<Unit> getRangedUnit(){
         return getAllUnits().stream()
-                .filter(unit -> unit instanceof RangedUnit)
-                .collect(Collectors.toList());
+            .filter(RangedUnit.class::isInstance).toList();
     }
 
     /**
@@ -205,8 +206,10 @@ public class Army{
      */
     public List<Unit> getCommanderUnit(){
         return getAllUnits().stream()
-                .filter(unit -> unit instanceof CommanderUnit)
-                .collect(Collectors.toList());
+            .filter(CommanderUnit.class::isInstance).toList();
     }
+
+
+
 
 }

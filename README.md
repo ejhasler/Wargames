@@ -1,4 +1,4 @@
-# Wargames
-Create a game called Wargames.
-MY APP
-This project will create to armies fighting each other.
+# Wargames Prosjekt
+
+Her skal jeg utvikle et program kalt for Wargames. Wargames simulerer et slag mellom
+ to armeer i en krig. 

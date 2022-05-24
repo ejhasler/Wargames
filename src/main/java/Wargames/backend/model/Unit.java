@@ -1,5 +1,9 @@
 package Wargames.backend.model;
 
+import java.io.Serializable;
+import java.util.Locale;
+import javafx.util.Pair;
+
 /**
  * Represents a unit. A unit that has a name, health(0 ->), attack(0 ->),
  * armor(0->) and attackNumber which tell how many times a unit has got attacked.
@@ -7,7 +11,7 @@ package Wargames.backend.model;
  * @author Even Johan Pereira Haslerud
  * @version 20.02.2022
  */
-public abstract class Unit {
+public abstract class Unit  {
     // Name of the unit.
     private String name;
     // Health of the unit.
@@ -18,6 +22,11 @@ public abstract class Unit {
     private int armor;
     // How many times it's been unit.
     int attackNumber;
+    private Terrain terrain;
+
+    private enum Terrain {
+        NONE, HILL, PLAINS, FOREST
+    }
 
     /**
      * Create an instance of a Unit with a given name, health, attack
@@ -41,6 +50,8 @@ public abstract class Unit {
         this.setHealth(health);
         this.setAttack(attack);
         this.setArmor(armor);
+        this.attackNumber = 0;
+        this.terrain = Terrain.NONE;
     }
 
     /**
@@ -60,6 +71,14 @@ public abstract class Unit {
                         + this.getAttackBonus() + (opponentUnit.getArmor())
                         + opponentUnit.getResistBonus()));
         opponentUnit.attackNumber++;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getTerrain(){
+        return String.valueOf(this.terrain);
     }
 
     /**
@@ -123,25 +142,6 @@ public abstract class Unit {
         return attack;
     }
 
-    /**
-     * Sets the attack of the unit.
-     * If the attack is <code>null</code> or if attack < 0, a
-     * {@link IllegalArgumentException} will be thrown.
-     * 
-     * @param attack the attack of the unit
-     * @throws IllegalArgumentException if the name is <code>null</code> or attack < 0.
-     */
-    public void setAttack(int attack) {
-        if (attack == 0) {
-            throw new IllegalArgumentException("Attack number should not be null!!");
-        }
-
-        if(attack < 0) {
-            throw new IllegalArgumentException("Attack can't be negative!");
-        }
-        
-        this.attack = attack;
-    }
 
     /**
      * Return the armor of the unit.
@@ -169,6 +169,16 @@ public abstract class Unit {
         this.armor = armor;
     }
 
+
+
+
+    /**
+     * Abstract method to get unit type.
+     *
+     * @return UnitType Returns the unit type.
+     */
+    public abstract String getUnitType();
+
     /**
      * Returns class and fields in text.
      * @return  class and fields in text.
@@ -187,12 +197,47 @@ public abstract class Unit {
      * Returns the current attack bonus of the Unit.
      * @return attack bonus
      */
-    abstract protected int getAttackBonus();
+    protected abstract int getAttackBonus();
 
     /**
      * Returns the current resist bonus of the Unit.
      * @return resist bonus.
      */
-    abstract protected int getResistBonus();
+    protected abstract int getResistBonus();
+
+    /**
+     * Sets the attack of the unit.
+     * If the attack is <code>null</code> or if attack < 0, a
+     * {@link IllegalArgumentException} will be thrown.
+     *
+     * @param attack the attack of the unit
+     * @throws IllegalArgumentException if the name is <code>null</code> or attack < 0.
+     */
+    public void setAttack(int attack) {
+        if (attack == 0) {
+            throw new IllegalArgumentException("Attack number should not be null!!");
+        }
+
+        if(attack < 0) {
+            throw new IllegalArgumentException("Attack can't be negative!");
+        }
+
+        this.attack = attack;
+    }
+
+    /**
+     *
+     * @param terrain
+     */
+    public void setTerrain(String terrain) {
+        switch (terrain.toUpperCase()) {
+            case "HILL" -> this.terrain = Terrain.HILL;
+            case "FOREST" -> this.terrain = Terrain.FOREST;
+            case "PLAINS" -> this.terrain = Terrain.PLAINS;
+            default -> this.terrain = Terrain.NONE;
+        }
+    }
+
+    public abstract Pair<Integer,Integer> getTerrainBonusAttackDefence();
 
 }

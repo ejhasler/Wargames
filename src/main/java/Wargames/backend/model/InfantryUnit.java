@@ -1,5 +1,7 @@
 package Wargames.backend.model;
 
+import javafx.util.Pair;
+
 /**
  * A class representing a model of an Infantry Unit. With different values for attack and armor.
  * Closed ranged unit with no special abilities.
@@ -8,6 +10,8 @@ package Wargames.backend.model;
  * @version 21.02.2022
  */
 public class InfantryUnit extends Unit {
+
+    private static final String UNIT_TYPE = "Infantry";
 
     /**
      * Create a new InfantryUnit.
@@ -20,6 +24,14 @@ public class InfantryUnit extends Unit {
     public InfantryUnit(String name, int health, int attack, int armor) {
 
         super(name, health, attack, armor);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getUnitType() {
+        return UNIT_TYPE;
     }
 
     /**
@@ -41,7 +53,7 @@ public class InfantryUnit extends Unit {
     @Override
     public int getAttackBonus() {
 
-        return 2;
+        return 2 + getTerrainBonusAttackDefence().getKey();
     }
 
     /**
@@ -52,7 +64,22 @@ public class InfantryUnit extends Unit {
     @Override
     public int getResistBonus() {
 
-        return 1;
+        return 1 + getTerrainBonusAttackDefence().getValue();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Pair<Integer, Integer> getTerrainBonusAttackDefence() {
+        int attack = 0;
+        int defence = 0;
+        if (getTerrain().equalsIgnoreCase("FOREST")){
+            attack = 3;
+            defence = 3;
+        }
+        return new Pair<>(attack, defence);
     }
 
 }

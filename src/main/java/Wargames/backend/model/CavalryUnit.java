@@ -1,6 +1,8 @@
 package Wargames.backend.model;
 
 
+import javafx.util.Pair;
+
 /**
  * A class representing a model of an CavalryUnit. With different values for attack and armor.
  * Cavalry Units are a bit stronger units with a charge attack at their first attack, it will
@@ -12,6 +14,8 @@ package Wargames.backend.model;
  * @version 21.02.2022
  */
 public class CavalryUnit extends Unit {
+
+  private static final String UNIT_TYPE = "Cavalry";
 
     /**
      * Create a new CavalryUnit.
@@ -25,7 +29,12 @@ public class CavalryUnit extends Unit {
         super(name, health, attack, armor);
     }
 
-    /**
+  @Override
+  public String getUnitType() {
+    return UNIT_TYPE;
+  }
+
+  /**
      * Create a new CavalryUnit. With different values for attack(20) and armor(12).
      *
      * @param name The name of the unit
@@ -44,14 +53,15 @@ public class CavalryUnit extends Unit {
      */
    @Override
     public int getAttackBonus(){
+
        int charged = 4;
        int melee = 2;
        int bonus = 0;
 
        if(attackNumber == 1){
-           bonus = charged + melee;
+           bonus = charged + melee + getTerrainBonusAttackDefence().getKey();
        } else if(attackNumber >= 2) {
-           bonus = melee;
+           bonus = melee + getTerrainBonusAttackDefence().getKey();
        }
        return bonus;
     }
@@ -63,6 +73,25 @@ public class CavalryUnit extends Unit {
      */
     @Override
     public int getResistBonus(){
-        return 1;
+
+        return 1 + getTerrainBonusAttackDefence().getValue();
     }
+
+  /**
+   *
+   * @return
+   */
+  @Override
+  public Pair<Integer, Integer> getTerrainBonusAttackDefence() {
+    int attack = 0;
+    int defence = 0;
+    if (getTerrain().equalsIgnoreCase("PLAINS")){
+      attack = 3;
+    } else if(getTerrain().equalsIgnoreCase("FOREST")){
+      throw new IllegalArgumentException("DEFENCE");
+    }
+
+    return new Pair<>(attack, defence);
+  }
+
 }

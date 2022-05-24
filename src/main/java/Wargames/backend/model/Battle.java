@@ -10,9 +10,9 @@ import java.util.Random;
  */
 public class Battle {
     // The first Army of the units
-    private final Army armyOne;
+    private Army armyOne;
     // The second Army of the units
-    private final Army armyTwo;
+    private Army armyTwo;
 
 
     /**
@@ -28,6 +28,10 @@ public class Battle {
         this.armyOne = armyOne;
         this.armyTwo = armyTwo;
     }
+
+  public Battle() {
+
+  }
 
     /**
      *Simulates a battle between two armies. A random unit from an army1

@@ -1,10 +1,16 @@
 package Wargames;
 
+
+
+
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import Wargames.backend.model.CommanderUnit;
 import Wargames.backend.model.InfantryUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
 
 public class CommanderUnitTest {
     CommanderUnit commmanderUnit = new CommanderUnit("Even", 100);

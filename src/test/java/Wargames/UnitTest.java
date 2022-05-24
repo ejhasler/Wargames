@@ -1,15 +1,15 @@
-package Wargames.model;
+package Wargames;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import Wargames.backend.model.CavalryUnit;
 import Wargames.backend.model.CommanderUnit;
 import Wargames.backend.model.InfantryUnit;
 import Wargames.backend.model.RangedUnit;
 import Wargames.backend.model.Unit;
-import Wargames.model.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
 
 public class UnitTest {
 

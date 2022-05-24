@@ -1,5 +1,9 @@
 package Wargames;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import Wargames.backend.model.Army;
 import Wargames.backend.model.Battle;
 import Wargames.backend.model.CavalryUnit;
@@ -7,12 +11,10 @@ import Wargames.backend.model.CommanderUnit;
 import Wargames.backend.model.InfantryUnit;
 import Wargames.backend.model.RangedUnit;
 import Wargames.backend.model.Unit;
-import Wargames.model.*;
-import org.junit.Test;
+
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 
 public class BattleTest {

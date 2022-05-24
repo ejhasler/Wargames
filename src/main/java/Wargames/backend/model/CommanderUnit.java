@@ -9,6 +9,8 @@ package Wargames.backend.model;
  */
 public class CommanderUnit extends CavalryUnit {
 
+    private static final String UNIT_TYPE = "Commander";
+
     /**
      * Create new CommanderUnit.
      *
@@ -55,5 +57,9 @@ public class CommanderUnit extends CavalryUnit {
     public int getResistBonus(){
 
         return super.getResistBonus();
+    }
+
+    public String getUnitType(){
+        return UNIT_TYPE;
     }
 }
